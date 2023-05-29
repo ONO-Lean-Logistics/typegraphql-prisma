@@ -251,6 +251,10 @@ import { DecimalJSScalar } from \\"../../scalars\\";
   isAbstract: true
 })
 export class UserWhereUniqueInput {
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: true
+  })
+  _?: number | undefined;
 }
 "
 `;
