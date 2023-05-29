@@ -179,6 +179,24 @@ export function generateInputTypeClassFromType(
   );
 
   const fieldsToEmit = inputType.fields.filter(field => !field.isOmitted);
+  if (fieldsToEmit.length === 0) {
+    fieldsToEmit.push({
+      name: "_",
+      comment: "Dummy value to workaround github.com/MichalLytek/typegraphql-prisma/issues/19. Do not ever provide a value for this field.",
+      isNullable: true,
+      isRequired: false,
+      selectedInputType: {
+        type: "Int",
+        location: "scalar",
+        isList: false,
+      },
+      typeName: "_",
+      typeGraphQLType: "TypeGraphQL.Int",
+      fieldTSType: "number | undefined",
+      hasMappedName: false,
+      isOmitted: false,
+    });
+  }
   const mappedFields = fieldsToEmit.filter(field => field.hasMappedName);
 
   sourceFile.addClass({
